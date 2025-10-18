@@ -1,4 +1,3 @@
-cat > RecommendationCard.jsx << 'EOF'
 /**
  * Recommendation Card Component
  * Displays AI-generated recommendations
@@ -48,4 +47,4 @@ export default function RecommendationCard({ recommendation }) {
     </div>
   );
 }
-EOF
+

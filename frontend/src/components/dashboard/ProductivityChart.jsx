@@ -1,11 +1,9 @@
-cat > ProductivityChart.jsx << 'EOF'
 /**
  * Productivity Chart Component
  * Displays 24-hour productivity predictions
  */
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
-
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
 export default function ProductivityChart({ predictions }) {
   // Format data for chart
   const chartData = predictions.map(pred => ({
@@ -47,3 +45,25 @@ export default function ProductivityChart({ predictions }) {
           </defs>
           <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
           <XAxis 
+            dataKey="hour"
+            stroke="#888888"
+            tick={{ fontSize: 12 }}
+          />
+          <YAxis 
+            stroke="#888888"
+            tick={{ fontSize: 12 }}
+            domain={[0, 10]}
+          />
+          <Tooltip content={<CustomTooltip />} />
+          <Area
+            type="monotone"
+            dataKey="score"
+            stroke="#3b82f6"
+            strokeWidth={2}
+            fill="url(#colorScore)"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}

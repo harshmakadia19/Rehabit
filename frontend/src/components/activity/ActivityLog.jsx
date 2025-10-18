@@ -1,4 +1,3 @@
-cat > ActivityLog.jsx << 'EOF'
 /**
  * Activity Log Component
  * Form to log new activities
@@ -269,4 +268,3 @@ function QuickLogButton({ label, emoji, onClick }) {
     </button>
   );
 }
-EOF

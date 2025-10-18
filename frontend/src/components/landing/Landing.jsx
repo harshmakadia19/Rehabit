@@ -1,4 +1,3 @@
-cat > Landing.jsx << 'EOF'
 /**
  * Landing Page Component
  */
@@ -119,4 +118,3 @@ function StatItem({ number, label }) {
     </div>
   );
 }
-EOF

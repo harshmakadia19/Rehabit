@@ -14,4 +14,8 @@ export default function Loading({ message = 'Loading...' }) {
         </div>
 
         {/* Loading text */}
-        <p className="tex
+        <p className="text-gray-600">{message}</p>
+      </div>
+    </div>
+  );
+}

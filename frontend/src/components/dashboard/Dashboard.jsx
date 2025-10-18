@@ -1,7 +1,3 @@
-cat > Dashboard.jsx << 'EOF'
-/**
- * Main Dashboard Component
- */
 import React, { useState, useEffect } from 'react';
 import { Target, Clock, Flame, TrendingUp } from 'lucide-react';
 import { apiService } from '../../services/api';
@@ -17,7 +13,6 @@ export default function Dashboard() {
   
   const userId = 1; // Demo user ID
 
-  // TODO: Fetch dashboard data on component mount
   useEffect(() => {
     loadDashboard();
   }, []);
@@ -26,20 +21,10 @@ export default function Dashboard() {
     try {
       setLoading(true);
       
-      // TODO: Call Ayush's dashboard API
-      // HINT: const data = await apiService.getDashboard(userId);
-      // HINT: setDashboardData(data);
-      
-      // New real API call
-        const data = await apiService.getDashboard(userId);
-        setDashboardData(data);
-      } catch (error) {
-        console.error("Failed to load dashboard data:", error);
-      }
-      
-      setDashboardData(mockData);
+      // Call dashboard API
+      const data = await apiService.getDashboard(userId);
+      setDashboardData(data);
       setError(null);
-      
     } catch (err) {
       console.error('Error loading dashboard:', err);
       setError('Failed to load dashboard data');
@@ -85,21 +70,21 @@ export default function Dashboard() {
           <StatsCard
             icon={<Target size={24} />}
             label="Today's Productivity"
-            value={`${dashboardData.today_score}/10`}
+            value={`${dashboardData?.today_score || 0}/10`}
             subtitle="Above average 🎯"
             color="primary"
           />
           <StatsCard
             icon={<Clock size={24} />}
             label="Work Time"
-            value={`${Math.floor(dashboardData.work_time / 60)}h ${dashboardData.work_time % 60}m`}
+            value={`${Math.floor((dashboardData?.work_time || 0) / 60)}h ${(dashboardData?.work_time || 0) % 60}m`}
             subtitle="4 sessions completed"
             color="green"
           />
           <StatsCard
             icon={<Flame size={24} />}
             label="Current Streak"
-            value={`${dashboardData.streak} days`}
+            value={`${dashboardData?.streak || 0} days`}
             subtitle="Keep it up! 🔥"
             color="orange"
           />
@@ -116,7 +101,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Chart */}
           <div className="lg:col-span-2">
-            <ProductivityChart predictions={dashboardData.predictions} />
+            <ProductivityChart predictions={dashboardData?.predictions || []} />
           </div>
 
           {/* Right Column - Recommendations */}
@@ -126,7 +111,7 @@ export default function Dashboard() {
                 🤖 AI Recommendations
               </h3>
               <div className="space-y-3">
-                {dashboardData.recommendations.map((rec, idx) => (
+                {dashboardData?.recommendations?.map((rec, idx) => (
                   <RecommendationCard key={idx} recommendation={rec} />
                 ))}
               </div>
@@ -137,36 +122,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-// Helper function to generate mock predictions
-function generateMockPredictions() {
-  return Array.from({ length: 24 }, (_, i) => ({
-    hour: i,
-    score: 5 + Math.random() * 3 + Math.sin(i / 3) * 2
-  }));
-}
-
-// Helper function to generate mock recommendations
-function generateMockRecommendations() {
-  return [
-    {
-      type: 'timing',
-      priority: 'high',
-      message: 'Schedule your most important task at 10:00 AM - your peak productivity time',
-      action: 'schedule_task'
-    },
-    {
-      type: 'break',
-      priority: 'medium',
-      message: 'Take a 5-minute break in 30 minutes - you\'ve been focused for 2 hours',
-      action: 'take_break'
-    },
-    {
-      type: 'health',
-      priority: 'medium',
-      message: 'Great balance today! You\'re on track for sustainable productivity',
-      action: 'none'
-    }
-  ];
-}
-EOF
