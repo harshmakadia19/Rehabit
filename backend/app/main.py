@@ -4,7 +4,7 @@ Main FastAPI application for Rehabit
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import init_db
-from app.routers import users, activities
+from app.routers import users, activities, predictions, recommendations, dashboard
 
 # Initialize database tables
 init_db()
@@ -47,3 +47,6 @@ def health_check():
 # Include routers
 app.include_router(users.router, prefix="/api/users", tags=["users"])
 app.include_router(activities.router, prefix="/api/activities", tags=["activities"])
+app.include_router(predictions.router, prefix="/api/predictions", tags=["predictions"])
+app.include_router(recommendations.router, prefix="/api/recommendations", tags=["recommendations"])
+app.include_router(dashboard.router, prefix="/api/dashboard", tags=["dashboard"])
