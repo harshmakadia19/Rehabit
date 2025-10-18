@@ -2,18 +2,23 @@
 
 > AI-Powered Productivity and Habit Coaching Platform
 
-## 🚀 Quick Links
-- [ML Models](ml/)
-- [Backend API](backend/)
-- [Frontend App](frontend/)
-- [Testing & Deployment](testing/)
+## 🚀 Project Structure
+- **ml/** - Machine Learning models (Harsh)
+- **backend/** - FastAPI backend (Ayush)
+- **frontend/** - React frontend (Diya)
+- **testing/** - Testing & deployment (Rishi)
 
 ## 👥 Team
-- Harsh Makadia: ML/AI Engineer
-- Ayush Patel: Backend Developer  
-- Diya Patel: Frontend Developer
-- Rishi Nalam: QA/Testing & DevOps
-- Srikritha Kosuri: Product Manager & Demo Coordinator
+- **Harsh Makadia** - ML/AI Engineer
+- **Ayush Patel** - Backend Developer
+- **Diya Patel** - Frontend Developer
+- **Rishi Nalam** - QA/Testing & DevOps
+- **Srikritha Kosuri** - Product Manager & Demo
+
+## 🛠️ Tech Stack
+- **ML**: Python, scikit-learn, Prophet
+- **Backend**: FastAPI, PostgreSQL
+- **Frontend**: React, Tailwind CSS
 
 ---
-Built for CCI Startup Hackathon 2025 (UNC Charlotte)
+Built for CCI Startup Hackathon 2025
