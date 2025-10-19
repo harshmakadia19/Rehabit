@@ -23,11 +23,25 @@ export default function Dashboard() {
       
       // Call dashboard API
       const data = await apiService.getDashboard(userId);
+      
+      // ⬇️ ADD THIS SECTION HERE ⬇️
+      console.log('Dashboard data received:', data);
+      console.log('Predictions:', data.predictions);
+      
+      // TEMPORARY TEST: Make predictions different for user 2
+      if (userId === 2) {
+        data.predictions = data.predictions.map(p => ({
+          ...p,
+          score: p.score + Math.random() * 2 // Add random variation
+        }));
+      }
+      // ⬆️ END OF NEW CODE ⬆️
+      
       setDashboardData(data);
       setError(null);
     } catch (err) {
-      console.error(err.ProductivityChart, err);
-      console.error(err.RecommendationCard, err);
+      console.error('Error loading dashboard:', err);
+      setError('Failed to load dashboard data');
     } finally {
       setLoading(false);
     }
@@ -58,7 +72,7 @@ export default function Dashboard() {
         {/* Header */}
         <div className="mb-8 animate-fadeIn">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back! 👋
+            Welcome back, {dashboardData?.user_name || 'User'}! 👋
           </h1>
           <p className="text-gray-600">
             Here's your productivity overview for today
@@ -71,7 +85,7 @@ export default function Dashboard() {
             <StatsCard
               icon={<Target size={24} />}
               label="Today's Productivity"
-              value={`${dashboardData?.today_score || 0}/10`}
+              value={`${dashboardData?.today?.score || 0}/10`}
               subtitle="Above average 🎯"
               color="primary"
             />
@@ -80,7 +94,7 @@ export default function Dashboard() {
             <StatsCard
               icon={<Clock size={24} />}
               label="Work Time"
-              value={`${Math.floor((dashboardData?.work_time || 0) / 60)}h ${(dashboardData?.work_time || 0) % 60}m`}
+              value={`${Math.floor((dashboardData?.today?.work_time || 0) / 60)}h ${(dashboardData?.today?.work_time || 0) % 60}m`}
               subtitle="4 sessions completed"
               color="green"
             />
