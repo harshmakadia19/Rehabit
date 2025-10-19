@@ -26,8 +26,8 @@ export default function Dashboard() {
       setDashboardData(data);
       setError(null);
     } catch (err) {
-      console.error('Error loading dashboard:', err);
-      setError('Failed to load dashboard data');
+      console.error(err.ProductivityChart, err);
+      console.error(err.RecommendationCard, err);
     } finally {
       setLoading(false);
     }
